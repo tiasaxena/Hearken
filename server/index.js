@@ -9,7 +9,6 @@ const gtts = require('node-gtts')('en-uk');
 const path = require('path');
 //web scrapper
 const puppeteer = require('puppeteer');
-const { dirname } = require('path');
 
 const app = express();
 app.use(express.urlencoded({extended: true}));
@@ -18,26 +17,27 @@ app.use(cors());
 
 const TextToSpeech = async (url, name) => {
     const filepath = path.join(__dirname, `${name}.mp3`);
-    const browser = puppeteer.launch();
-    const page = browser.newPage();
-    await page.goto();
+    const browser = await puppeteer.launch();
+    const page = await browser.newPage();
+    await page.goto(url);
 
     // extract all the inner text
     const content = await page.$eval("*", (el) => el.innerText);
     // strip off all the black n whitespaces
     const strippedContent = content.replace(/\s+/g, " ").trim();
     //save the audio file in the filepath specified
-    gtts.save(filepath, strippedContent, function(){
+    gtts.save(filepath, strippedContent, function() {
         console.log('Audio saved in the specified filepath!');
     });
     await browser.close();
 }
 
-app.post('/get_text', function(req, res) {
+app.post('/get_text', async (req, res) => {
+    console.log('port request made to get text!')
     let { url, name } = req.body;
     TextToSpeech(url, name);
 })
 
-app.listen(3000, function() {
+app.listen(port, () => {
     console.log(`Server listing at port ${port}`);
 });
