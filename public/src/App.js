@@ -15,7 +15,7 @@ const App = () => {
 
     try{
       // making  a post request using axios
-      await axios.post('https://localhost:3000/get_text', {
+      await axios.post('https://localhost:4000/get_text', {
         url, 
         name
       })
@@ -28,8 +28,9 @@ const App = () => {
     <div className="App">
       
       { !sent ? 
-        <form action='/' method='POST' onSubmit={sendUrl}>
+        <>
         <h1>Welcome to Hearken Web App!</h1>
+        <form onSubmit={sendUrl}>
         <input 
         type="text"
         placeholder='Enter the filename'
@@ -41,7 +42,8 @@ const App = () => {
         onChange={(event) => setUrl(event.target.value)}
         value={url} />
         <button type='submit'>Generate Audio File</button>
-      </form> : 
+      </form> 
+        </> : 
       <h1>Audio File Downloaded!</h1>}
     </div>
   );
