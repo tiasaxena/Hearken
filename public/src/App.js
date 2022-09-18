@@ -28,23 +28,29 @@ const App = () => {
     <div className="App">
       
       { !sent ? 
-        <>
-        <h1>Welcome to Hearken Web App!</h1>
-        <form onSubmit={sendUrl}>
-        <input 
-        type="text"
-        placeholder='Enter the filename'
-        onChange={(event) => setName(event.target.value)}
-        value={name} />
-        <input 
-        type="link" 
-        placeholder='Enter the url'
-        onChange={(event) => setUrl(event.target.value)}
-        value={url} />
-        <button type='submit'>Generate Audio File</button>
+        <div className='container'>
+        <h1 className='mt-[2.4rem]'>Welcome to Hearken Web App!</h1>
+        <form onSubmit={sendUrl}
+        className='flex flex-col w-[40%] m-auto'>
+          <input className='my-[1.5rem] border px-[1.2rem] rounded-[1.89rem] py-[0.4rem]'
+          type="text"
+          placeholder='Enter the filename'
+          onChange={(event) => setName(event.target.value)}
+          value={name}
+          required
+          />
+          <input 
+          type="link" 
+          className='my-[2rem] border px-[1.2rem] rounded-[1.89rem] py-[0.4rem]'
+          placeholder='Enter the url'
+          onChange={(event) => setUrl(event.target.value)}
+          value={url}
+          required
+          />
+          <button type='submit' className='btn btn-md btn-success w-[40%] m-auto'>Generate Audio File</button>
       </form> 
-        </> : 
-      <h1>Audio File Downloaded!</h1>}
+        </div> : 
+      <h1 className='mt-[2.49rem] text-[#198754]'>Audio File Downloaded!</h1>}
     </div>
   );
 }
